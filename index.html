@@ -1,0 +1,43 @@
+---
+layout: default
+title: Tom Preston-Werner
+---
+<div id="content">
+     <div class="intro">
+       I'm <b>Terry Tai</b>, a Rails developer in Chengdu, China.  
+       I began using Rails to create nice projects about three years ago. 
+       I love the philosophy behind the Ruby and the Rails, which really  change my life. In my spare time,
+       I'd like to taking photograph, reading book, listening to music, watching movie. BTW, I'm a big fans of Apple.
+
+    </div>
+
+     <div class="leftbar">
+
+
+     {% for post in site.posts%}
+     <div class="panel">
+
+      <span class="title"><a href="{{post.url}}">{{post.title}}</a></span>
+      <span class="name">Terry</span> posted on <span class="time">{{ post.date | date_to_string}}</span>
+
+      
+      </div>
+      {%endfor%}
+     </div>
+
+     <div class="rightbar">
+       <span class="r_title">My</span>
+       <ul>
+        <li><a href=""><img src="/images/twitter.png" alt="twitter" /></a></li>
+        <li><a href=""><img src="/images/github.png" alt="github" /></a></li>
+        <li><a href=""><img src="/images/tumblr.png" alt="tumblr" /></a></li>
+        <li><a href=""><img src="/images/flickr.png" alt="flickr" /></a></li>
+        <li><a href=""><img src="/images/foursquare.png" alt="foursquare" /></a></li>
+        <li><a href=""><img src="/images/facebook.png" alt="facebook" /></a></li>
+        <li><a href=""><img src="/images/linkdin.png" alt="linkdin" /></a></li>
+        <li><a href=""><img src="/images/vimeo.png" alt="vimeo" /></a></li>
+       </ul>
+     </div>
+</div>
+
+   

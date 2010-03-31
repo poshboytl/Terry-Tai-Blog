@@ -2,9 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Terry Tai's blog'</title>
- <link href="http://terrytai/atom.xml" rel="self"/>
+ <link href="http://terrytai.com/atom.xml" rel="self"/>
  <link href="http://terrytai.com/"/>
- <updated>2010-03-31T21:32:57+08:00</updated>
+ <updated>2010-03-31T22:36:14+08:00</updated>
  <id>http://terrytai.com/</id>
  <author>
    <name>Terry Tai's blog</name>

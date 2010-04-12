@@ -154,9 +154,12 @@ img{
 /*-------------------------*/
 
 #post h1{
-	font-size:18px;
+	font-size: 25px;
 }
 
+#post h2{
+	font-size: 15px;
+}
 #post .meta{
 	font-size:12px;
 	color:grey;

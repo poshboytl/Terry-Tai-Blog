@@ -1,0 +1,70 @@
+---
+layout: post
+title: How I deploy my jekyll blog
+---
+
+h1. {{page.title}}
+
+h2. What is jekyll? 
+	
+	In my opinion "jekyll":http://jekyllrb.com/ is a pretty simple blog system, technically we can also treat it as a static site generator. The philosophy behind jekyll is simple and static. 
+	
+	Simple: There is no admin page, no DB, even no comments support... But i's very very flexible, at least it's more flexible than any other blog system I've ever met.  
+	Static: Every page you visit in my blog is static, you can just run it only by Nginx or what ever you want.
+
+h2. How to deploy jekyll project?
+	
+	Make the jekyll project run on a server may not be difficult. But if you want to make the process for publishing your blog post smarter, you may need some time to think over.
+	There are still some existing ways on the "jekyll wiki":http://wiki.github.com/mojombo/jekyll/, you'd better take a look firstly. 
+	I'm very interesting in the way of "Rake-Jekyll":http://github.com/bry4n/rack-jekyll/ which transform jekyll app into Rack app. Though it's cool, not suitable for me, at least for this blog currently. 
+	If some day I need integrate my jekyll app with some dynamic content or with Rails, I will consider Rake-Jekyll at first.
+	
+h2. How I deploy this blog.
+
+Let me describe the process I want for publishing my blog.
+	First of all, I write my blog content in the "WriteRoom":http://www.hogbaysoftware.com/products/writeroom.
+	After that, I need add some links, pics and adjust the layout by "Textile":http://en.wikipedia.org/wiki/Textile_(markup_language) or "markdown":http://daringfireball.net/projects/markdown/ tags in my "Textmate":http://macromates.com/.
+	When post is finished, I commit my jekyll blog to github.
+	At last, I just wanna run 'cap deploy' to finish the publishing.
+
+*What I do to support my publishing process and requirement:*
+
+	To keep things simpe, I just wanna run my blog by Ngnix without running the jekyll process backend. On the other hand, I havn't added the _site folder to my VCS. So the static content need to be generated on the server side.  
+Unfortunately, in current version of jekyll, when you run the jekyll command to generate the static content, the jekyll process will keep running after the generation done. Originally, I use a very ugly way to kill the jekyll process which run "killall jekyll". Finally, I find a "fork":http://github.com/mattmatt/jekyll from mattmatt support this function for me. It can only generate the static content and close the jekyll process automatically. 
+
+Here is my Capfile: 
+
+{% highlight ruby %}
+load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+set :application, "Terry-Tai-Blog"
+set :scm, :git
+set :repository, "git@github.com:poshboytl/Terry-Tai-Blog.git"
+set :domain, "terrytai.com"
+set :use_sudo, false
+set :user, "blog"
+set :deploy_to, "/home/blog/#{application}"
+
+role :app, domain
+role :web, domain
+
+namespace :deploy do
+  task :restart, :roles => :app do
+	run "rm #{current_path}/README"
+	run "cd #{current_path} && jekyll"
+  end
+
+  task :start, :roles => :app do
+    # do nothing
+  end
+
+  task :stop, :roles => :app do
+    # do nothing
+  end
+  
+  task :finalize_update do
+    # do nothing
+  end
+end
+{% endhighlight %}
+
+So, after finishing my blog, I just need commit the post to the github, and run 'cap deploy'. That's all.
